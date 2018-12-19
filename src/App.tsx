@@ -1,15 +1,16 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import * as H from 'history';
-import { NavigationDrawer } from 'react-md';
-import NavLink from './components/NavLink';
+import { NavigationDrawer, TabsContainer, Tab, Tabs } from 'react-md';
+// import NavLink from './components/NavLink';
+import FiltersView from './components/Filters';
 
 import './App.css';
 
-import Home from './pages/Home';
-import Page1 from './pages/Page1';
-import Page2 from './pages/Page2';
-import Page3 from './pages/Page3';
+import Text from './pages/Text';
+import Image from './pages/Image';
+// import Page2 from './pages/Page2';
+// import Page3 from './pages/Page3';
 
 interface INavSettings {
   exact?: boolean;
@@ -23,29 +24,29 @@ const DEFAULT_TITLE = 'Welcome';
 const navItems: INavSettings[] = [
   {
     exact: true,
-    label: 'Home',
+    label: 'Text Anonymization',
     to: '/',
     icon: 'home',
-    component: Home
+    component: Text
   },
   {
-    label: 'Page 1',
-    to: '/page-1',
+    label: 'Image Anonymization',
+    to: '/image',
     icon: 'bookmark',
-    component: Page1
+    component: Image
   },
-  {
-    label: 'Page 2',
-    to: '/page-2',
-    icon: 'donut_large',
-    component: Page2
-  },
-  {
-    label: 'Page 3',
-    to: '/page-3',
-    icon: 'flight_land',
-    component: Page3
-  }
+  // {
+  //   label: 'Page 2',
+  //   to: '/page-2',
+  //   icon: 'donut_large',
+  //   component: Page2
+  // },
+  // {
+  //   label: 'Page 3',
+  //   to: '/page-3',
+  //   icon: 'flight_land',
+  //   component: Page3
+  // }
 ];
 
 class App extends React.Component {
@@ -56,13 +57,38 @@ class App extends React.Component {
   }
 
   render() {
+
+    // const navButtons = navItems.map(props => <NavLink {...props} key={props.to} />);
+
+    const tabs = (
+      <TabsContainer
+        panelClassName="md-grid"
+        colored={true}
+        activeTabIndex={navItems.findIndex(i => window.location.pathname === i.to)}
+        onTabChange={() => null}
+      >
+        <Tabs tabId="simple-tab">
+          {
+            navItems.map((props, idx) => (
+              <Tab
+                key={idx}
+                label={props.label}
+                onClick={() => window.location.replace(props.to)}
+              />
+            ))
+          }
+        </Tabs>
+      </TabsContainer>
+    );
+
     return (
       <Route
         render={({ location }) => (
           <NavigationDrawer
-            drawerTitle="Site Navigation"
+            drawerTitle="Presidio"
             toolbarTitle={this.getLocationTitle(location)}
-            navItems={navItems.map(props => <NavLink {...props} key={props.to} />)}
+            toolbarActions={tabs}
+            navItems={[<FiltersView key={0} />]}
           >
             <Switch key={location.key}>
               {
