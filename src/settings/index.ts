@@ -18,9 +18,8 @@ export const INPUT_DEFAULT_TEXT = `Here are a few examples of entities we curren
     IP: 192.168.0.1
     Person name: David Johnson
 
-    Bank account: 285456787654
-    Driver license number: H12234567
-    Itin: 911-70-1234 
+    Bank account: 2854567876542
+    Driver license number: H12234567 
     Passport: 912803456
     Phone number: (212) 555-1234.
     Social security number: 078-05-1120
